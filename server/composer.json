@@ -1,0 +1,16 @@
+{
+  "name": "leandro/teste-programacao-pratico",
+  "description": "CRUD para cadastro de corretores.",
+  "license": "livre",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Leandro Rodrigues",
+      "email": "leandro.rodrigues00@hotmail.com"
+    }
+  ]
+}
