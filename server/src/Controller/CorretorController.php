@@ -4,19 +4,23 @@ namespace App\Controller;
 
 use App\Model\Database;
 
-class CorretorController{
+class CorretorController
+{
     private $corretor;
     private $db;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = new Database();
     }
 
-    public function index(){
+    public function index()
+    {
         return $corretores = $this->db->getAllCorretores();
     }
 
-    public function store($data){
+    public function store($data)
+    {
         if (
             !isset($data["name"]) ||
             !isset($data["cpf"]) ||
@@ -25,7 +29,7 @@ class CorretorController{
             return [
                 "status" => false,
                 "mensagem" =>
-                    "Dados incompletos. Verifique se todos os campos foram preenchidos.",
+                    "Incomplete data. Please ensure all fields are filled in.",
             ];
         }
 
@@ -35,7 +39,7 @@ class CorretorController{
         if ($this->db->checkCorretorByCPF($data["cpf"])) {
             return [
                 "status" => false,
-                "mensagem" => "Corretor com este CPF já está cadastrado.",
+                "mensagem" => "A broker with this CPF is already registered.",
             ];
         }
 
@@ -48,7 +52,7 @@ class CorretorController{
         if ($success) {
             return [
                 "status" => true,
-                "mensagem" => "Corretor criado com sucesso.",
+                "mensagem" => "Broker created successfully.",
                 "corretor" => [
                     "nome" => $data["name"],
                     "cpf" => $data["cpf"],
@@ -58,7 +62,7 @@ class CorretorController{
         } else {
             return [
                 "status" => false,
-                "mensagem" => "Erro ao criar corretor.",
+                "mensagem" => "Error creating broker.",
             ];
         }
     }
@@ -73,7 +77,7 @@ class CorretorController{
             return [
                 "status" => false,
                 "mensagem" =>
-                    "Dados incompletos. Verifique se todos os campos foram preenchidos.",
+                    "Incomplete data. Please check if all fields are filled in."
             ];
         }
 
@@ -87,7 +91,7 @@ class CorretorController{
         if ($success) {
             return [
                 "status" => true,
-                "mensagem" => "Corretor atualizado com sucesso.",
+                "mensagem" => "Broker updated successfully.",
                 "corretor" => [
                     "id" => $id,
                     "nome" => $data["name"],
@@ -98,7 +102,7 @@ class CorretorController{
         } else {
             return [
                 "status" => false,
-                "mensagem" => "Erro ao atualizar corretor.",
+                "mensagem" => "Error updating broker.",
             ];
         }
     }
@@ -110,14 +114,14 @@ class CorretorController{
         if ($success) {
             return [
                 "status" => true,
-                "mensagem" => "Corretor deletado com sucesso",
-                "descricao" => "Corretor com ID $id foi deletado",
+                "mensagem" => "Broker deleted successfully",
+                "descricao" => "Broker with ID $id has been deleted",
             ];
         } else {
             return [
                 "status" => false,
-                "mensagem" => "Erro ao deletar o corretor",
-                "descricao" => "Ocorreu um problema ao tentar deletar o corretor com ID $id",
+                "mensagem" => "Error deleting broker",
+                "descricao" => "There was a problem trying to delete the broker with ID $id",
             ];
         }
     }
@@ -129,14 +133,14 @@ class CorretorController{
         if (!$corretor) {
             return [
                 "status" => false,
-                "mensagem" => "Corretor não encontrado.",
+                "mensagem" => "Broker not found.",
                 "corretor" => null,
             ];
         }
 
         return [
             "status" => true,
-            "mensagem" => "Corretor recuperado com sucesso.",
+            "mensagem" => "Broker retrieved successfully.",
             "corretor" => $corretor,
         ];
     }

@@ -9,10 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - Imóvel Guide",
-    default: "Cadastro de Corretor - Imóvel Guide",
+    template: "%s - Property Guide",
+    default: "Broker Registration - Property Guide",
   },
-  description: "Guia de Imobiliárias e Corretores",
+  description: "Real Estate Agencies and Brokers Guide",
 };
 
 interface RootLayoutProps {

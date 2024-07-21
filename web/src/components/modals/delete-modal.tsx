@@ -25,17 +25,17 @@ export function DeleteModal({ handleDelete, corretorId }: DeleteModalProps) {
         <Button variant="outline">
           <span className="flex items-center gap-1 text-red-500">
             <Trash2 size={14} />
-            Deletar
+            Delete
           </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md bg-slate-200">
         <DialogHeader>
           <DialogTitle className="mt-5 text-center text-2xl font-bold">
-            Cuidado, essa ação é irreversível
+             Warning, this action is irreversible
           </DialogTitle>
           <DialogDescription className="mb-2 text-center text-base">
-            Você tem certeza que quer deletar esse corretor ?
+             Are you sure you want to delete this broker?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -45,7 +45,7 @@ export function DeleteModal({ handleDelete, corretorId }: DeleteModalProps) {
               className="w-full"
               onClick={() => handleDelete(corretorId)}
             >
-              Deletar
+              Delete
             </Button>
           </div>
         </DialogFooter>

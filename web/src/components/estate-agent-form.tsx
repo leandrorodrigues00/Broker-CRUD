@@ -15,7 +15,7 @@ export function EstateAgentForm() {
   const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
     registerEstateAgentAction,
     () => {
-      toast.success("Corretor criado com sucesso.", {
+      toast.success("Broker created successfully.", {
         duration: 4000,
       });
     },
@@ -26,7 +26,7 @@ export function EstateAgentForm() {
       {success === false && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
-          <AlertTitle>O castro falhou!</AlertTitle>
+          <AlertTitle>Registration Failed!</AlertTitle>
 
           <AlertDescription>
             <p>{message}</p>
@@ -40,7 +40,7 @@ export function EstateAgentForm() {
             <Input
               id="cpf"
               name="cpf"
-              placeholder="Digite o seu CPF"
+              placeholder="Enter your CPF"
               onChange={(e) => {
                 const { value } = e.target;
                 e.target.value = formatCpf(value);
@@ -53,19 +53,19 @@ export function EstateAgentForm() {
 
         <div>
           <InputRoot>
-            <Input id="creci" name="creci" placeholder="Digite o seu Creci" />
+            <Input id="creci" name="creci" placeholder="Enter your CRECI" />
           </InputRoot>
           {errors?.creci && <ErrorMessage>{errors.creci[0]}</ErrorMessage>}
         </div>
       </div>
 
       <InputRoot>
-        <Input id="name" name="name" placeholder="Digite seu nome" />
+        <Input id="name" name="name" placeholder="Enter your name" />
       </InputRoot>
       {errors?.name && <ErrorMessage>{errors.name[0]}</ErrorMessage>}
 
       <Button disabled={isPending} type="submit">
-        Enviar
+        Submit
       </Button>
     </form>
   );

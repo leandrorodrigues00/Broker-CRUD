@@ -1,146 +1,89 @@
-### Documentação das Rotas da API
+# API Route Documentation
 
-Rotas disponíveis na API:
+Available routes in the API:
 
-<br>
+## 1. Get all brokers
+   - URL: GET /brokers
+   - Description: Returns all brokers registered in the system.
+   - Request Example:
+     GET http://yourserver/brokers
+   - Response Example (status code: 200 OK):
+     {
+       "status": true,
+       "message": "Brokers retrieved successfully",
+       "brokers": [
+         {
+           "id": 1,
+           "name": "João Silva",
+           "creci": "12345-j",
+           "cpf": "123.456.789-00"
+         },
+         {
+           "id": 2,
+           "name": "Maria Souza",
+           "creci": "12345-j",
+           "cpf": "987.654.321-00"
+         }
+       ]
+     }
 
-<details>
-<summary>Obter todos os corretores</summary>
-<br>
- 
-- **URL:** `GET /corretores`
-- **Descrição:** Retorna todos os corretores cadastrados no sistema.
-- **Exemplo de Requisição:**
+## 2. Get a broker by ID
+   - URL: GET /brokers/{id}
+   - Description: Returns the information of a broker with the specified ID.
+   - Request Example:
+     GET http://yourserver/brokers/1
+   - Response Example (status code: 200 OK):
+     {
+       "id": 1,
+       "name": "João Silva",
+       "creci": "12345-j",
+       "cpf": "123.456.789-00"
+     }
 
-`GET http://seuservidor/corretores`
+## 3. Create a new broker
+   - URL: POST /brokers
+   - Description: Creates a new broker in the system.
+   - Request Example:
+     POST http://yourserver/brokers
+   - Parameters to be sent in the request body (JSON):
+     {
+       "name": "Fernanda Oliveira",
+       "cpf": "456.789.123-00",
+       "creci": "12345-k"
+     }
+   - Response Example (status code: 200 OK):
+     {
+       "status": true,
+       "message": "Broker created successfully",
+       "broker": true
+     }
 
-- Exemplo de Resposta (status code: 200 OK):
+## 4. Update a broker by ID
+   - URL: PUT /brokers/{id}
+   - Description: Updates the information of a broker with the specified ID.
+   - Request Example:
+     PUT http://yourserver/brokers/1
+   - Parameters to be sent in the request body (JSON):
+     {
+       "name": "Fernanda Oliveira",
+       "cpf": "456.789.123-00",
+       "creci": "12345-k"
+     }
+   - Response Example (status code: 200 OK):
+     {
+       "status": true,
+       "message": "Broker updated successfully",
+       "broker": 1
+     }
 
-```json
-{
-  "status": true,
-  "mensagem": "corretores recuperados com sucesso",
-  "usuarios": [
-    {
-      "id": 1,
-      "nome": "João Silva",
-      "creci": "12345-j",
-      "cpf": "123.456.789-00",
-    }
-    {
-      "id": 2,
-      "nome": "Maria Souza",
-      "creci": "12345-j",
-      "cpf": "987.654.321-00",
-    }
-  ]
-}
-```
-
-</details>
-
-<details>
-<summary>Obter um corretor pelo ID</summary>
-
-- **URL:** `GET /corretores/{id}`
-- **Descrição:** Retorna as informações de um corretor com o ID especificado.
-- **Exemplo de Requisição:**
-
-  `GET http://seuservidor/corretores/1`
-
-- **Exemplo de Resposta (status code: 200 OK):**
-
-```json
-{
-  "id": 1,
-  "nome": "João Silva",
-  "creci": "12345-j",
-  "cpf": "123.456.789-00"
-}
-```
-
-</details>
-
-<details >
-<summary>Criar um novo corretor</summary>
-
-- **URL:** `POST /corretores`
-- **Descrição:** Cria um novo corretor no sistema.
-- **Exemplo de Requisição:**
-
-  `POST http://seuservidor/corretores`
-
-- **Parâmetros a serem enviados como corpo da solicitação (JSON):**
-
-```json
-{
-  "nome": "Fernanda Oliveira",
-  "cpf": "456.789.123-00",
-  "creci": "12345-k"
-}
-```
-
-- **Exemplo de Resposta (status code: 200 OK):**
-
-```json
-{
-  "status": true,
-  "mensagem": "Corretor criado com sucesso",
-  "usuario": true
-}
-```
-
-</details>
-
- <details>
-
-<summary>Atualizar um corretor pelo ID</summary>
-
-- **URL:** `PUT /corretores/{id}`
-- **Descrição:** Atualiza as informações de um corretor com o ID especificado.
-- **Exemplo de Requisição:**
-
-  `PUT http://seuservidor/corretores/1`
-
-- **Parâmetros a serem enviados como corpo da solicitação (JSON)**
-
-```json
-{
-  "nome": "Fernanda Oliveira",
-  "cpf": "456.789.123-00",
-  "creci": "12345-k"
-}
-```
-
-- **Exemplo de Resposta (status code: 200 OK):**
-
-```json
-{
-  "status": true,
-  "mensagem": "Corretor atualizado com sucesso",
-  "usuario": 1
-}
-```
-
-</details>
-
- <details>
-<summary>Deletar um corretor pelo ID</summary>
-
-- **URL:** `DELETE /corretores/{id}`
-- **Descrição:** Deleta um corretor com o ID especificado.
-- **Exemplo de Requisição:**
-
-  `DELETE http://seuservidor/corretores/1`
-
-- **Exemplo de Resposta (status code: 200 OK):**
-
-```json
-{
-  "status": true,
-  "mensagem": "Corretor deletado com sucesso",
-  "descricao": "Corretor com ID 1 foi deletado"
-}
-```
-
-</details>
+## 5. Delete a broker by ID
+   - URL: DELETE /brokers/{id}
+   - Description: Deletes a broker with the specified ID.
+   - Request Example:
+     DELETE http://yourserver/brokers/1
+   - Response Example (status code: 200 OK):
+     {
+       "status": true,
+       "message": "Broker deleted successfully",
+       "description": "Broker with ID 1 was deleted"
+     }

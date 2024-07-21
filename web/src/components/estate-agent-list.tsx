@@ -71,7 +71,7 @@ export function EstateAgentList() {
         );
         setCorretores(updatedCorretores);
 
-        toast.info("Corretor deletado com sucesso", {
+        toast.info("Broker deleted successfully.", {
           duration: 4000,
         });
       } else {
@@ -100,7 +100,7 @@ export function EstateAgentList() {
         <TableHeader>
           <TableRow>
             <TableHead>Id</TableHead>
-            <TableHead>Nome</TableHead>
+            <TableHead>Name</TableHead>
             <TableHead>Creci</TableHead>
             <TableHead>CPF</TableHead>
           </TableRow>
@@ -131,7 +131,7 @@ export function EstateAgentList() {
                           className="flex items-center gap-1 text-blue-600"
                         >
                           <Pencil size={14} />
-                          Editar
+                          Edit
                         </a>
                       </Button>
 
@@ -145,7 +145,7 @@ export function EstateAgentList() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    Nenhum corretor encontrado.
+                     No brokers found.
                   </TableCell>
                 </TableRow>
               )}

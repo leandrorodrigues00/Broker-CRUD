@@ -22,12 +22,12 @@ export interface EditEstateAgentProps {
 export function EditEstateAgent({ corretor }: EditEstateAgentProps) {
   const router = useRouter();
 
-  //todo: tratar erros de api, e notificar usuários.
+  //TODO: handle API errors and notify users.
   const [{ success, message, errors }, handleSubmit] = useFormState(
     editEstateAgentAction,
     () => {
       router.push("/");
-      toast.success("Corretor editado com sucesso.", {
+      toast.success("Broker edited successfully.", {
         duration: 4000,
       });
     },
@@ -35,7 +35,7 @@ export function EditEstateAgent({ corretor }: EditEstateAgentProps) {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2">
-      {/* Input para enviar o ID do corretor, usuário não precisa o fornecer, mas precisa ir junto do formData */}
+     {/* Input to send the ID of the broker, the user doesn't need to provide it, but it needs to be included in the formData */}
       <input type="hidden" name="id" value={corretor.id} />
       <div className="flex gap-2">
         <div>
@@ -43,7 +43,7 @@ export function EditEstateAgent({ corretor }: EditEstateAgentProps) {
             <Input
               id="cpf"
               name="cpf"
-              placeholder="Digite o seu CPF"
+              placeholder="Enter your CPF"
               defaultValue={formatCpf(corretor.cpf)}
               onChange={(e) => {
                 const { value } = e.target;
@@ -60,7 +60,7 @@ export function EditEstateAgent({ corretor }: EditEstateAgentProps) {
             <Input
               id="creci"
               name="creci"
-              placeholder="Digite o seu Creci"
+              placeholder="Enter your CRECI"
               defaultValue={corretor.creci}
             />
           </InputRoot>
@@ -72,13 +72,13 @@ export function EditEstateAgent({ corretor }: EditEstateAgentProps) {
         <Input
           id="name"
           name="name"
-          placeholder="Digite seu nome"
+          placeholder="Enter your name"
           defaultValue={corretor.name}
         />
       </InputRoot>
       {errors?.name && <ErrorMessage>{errors.name[0]}</ErrorMessage>}
 
-      <Button type="submit">Editar Corretor</Button>
+      <Button type="submit">Edit Broker</Button>
     </form>
   );
 }

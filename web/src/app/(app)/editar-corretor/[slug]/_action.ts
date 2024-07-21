@@ -8,16 +8,16 @@ const editEstateAgentSchema = z.object({
   id: z.string().min(1),
   cpf: z.string().refine(
     (val) => {
-      const cleaned = val.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      const cleaned = val.replace(/\D/g, ""); // Remove all non-numeric characters
       return cleaned.length === 11;
     },
-    { message: "CPF inválido" },
+    { message: "Invalid CPF" },
   ),
   creci: z
     .string()
-    .min(2, { message: "CRECI deve ter no mínimo 2 caracteres" })
-    .max(10, { message: "máximo 10 dígitos, conforme Federação" }),
-  name: z.string().min(2, { message: "Nome deve ter no mínimo 2 caracteres" }),
+    .min(2, { message: "CRECI must have at least 2 characters" })
+    .max(10, { message: "Maximum 10 digits, as per Federation" }),
+  name: z.string().min(2, { message: "Name must have at least 2 characters" }),
 });
 
 export async function editEstateAgentAction(data: FormData) {
@@ -51,7 +51,7 @@ export async function editEstateAgentAction(data: FormData) {
 
     return {
       success: false,
-      message: "Erro inesperado, tente novamente dentro de alguns minutos",
+      message: "Unexpected error, please try again in a few minutes",
       errors: null,
     };
   }

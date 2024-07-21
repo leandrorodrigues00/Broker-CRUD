@@ -3,8 +3,7 @@ import { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 type InputPrefixProps = ComponentProps<"div">;
-
-// Subcomponente para prefixo do input (ex: ícones) - Compound Components.
+ 
 export function InputPrefix({ className, ...props }: InputPrefixProps) {
   return <div className={cn(className)} {...props} />;
 }
