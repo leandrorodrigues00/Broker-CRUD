@@ -1,4 +1,5 @@
-import { FormClientSide } from "@/components/form-client-side";
+import { EstateAgentForm } from "@/components/estate-agent-form";
+import { EstateAgentList } from "@/components/estate-agent-list";
 
 export default function Home() {
   return (
@@ -11,7 +12,13 @@ export default function Home() {
         <span className="text-sm text-zinc-500">Cadastre seus dados aqui.</span>
       </div>
 
-      <FormClientSide />
+      <EstateAgentForm />
+
+      <h1 className="mb-10 mt-20 text-3xl font-medium text-zinc-900">
+        Lista de Corretores
+      </h1>
+
+      <EstateAgentList />
     </main>
   );
 }

@@ -1,29 +1,13 @@
-import { EditRealEstateAgentForm } from "@/components/edit-real-estate-agent-form";
+import { getEstateAgentById } from "@/http/get-estate-agent-by-id";
+
+import { EditEstateAgent } from "@/components/edit-estate-agent";
 
 interface ParamsProps {
   params: { slug: string };
 }
 
-interface CorretorApiProps {
-  status: boolean;
-  mensagem: string;
-  corretor: Corretor;
-}
-
-export interface Corretor {
-  id: number;
-  name: string;
-  cpf: string;
-  creci: string;
-}
 export default async function EditarCorretorPage({ params }: ParamsProps) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/corretores/${params.slug}`,
-    {
-      cache: "no-store",
-    },
-  );
-  const data: CorretorApiProps = await response.json();
+  const estateAgent = await getEstateAgentById({ id: params.slug });
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -34,10 +18,11 @@ export default async function EditarCorretorPage({ params }: ParamsProps) {
           Editar corretor id: <span className="font-bold">{params.slug}</span>
         </span>
       </div>
-      {data.status === true ? (
-        <EditRealEstateAgentForm corretor={data.corretor} />
+
+      {estateAgent.status === true ? (
+        <EditEstateAgent corretor={estateAgent.corretor} />
       ) : (
-        <p>{data.mensagem}</p>
+        <p>{estateAgent.mensagem}</p>
       )}
     </main>
   );

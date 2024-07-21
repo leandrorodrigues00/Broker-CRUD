@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { deleteEstateAgent } from "@/http/delete-estate-agent";
+import { listEstateAgent } from "@/http/list-estate-agent";
+import useStore from "@/zustand-store";
+import { HTTPError } from "ky";
 import { Pencil } from "lucide-react";
 import { toast } from "sonner";
 
@@ -23,71 +27,70 @@ interface Corretor {
   creci: string;
 }
 
-interface CorretoresApi {
-  status: string;
-  mensagem: string;
-  usuarios: Corretor[];
-}
-
-interface ListRealEstateAgentsProps {
-  updateTrigger: boolean;
-}
-export function ListRealEstateAgents({
-  updateTrigger,
-}: ListRealEstateAgentsProps) {
+export function EstateAgentList() {
   const [corretores, setCorretores] = useState<Corretor[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const rehydrateTrigger = useStore((state) => state.rehydrateTrigger);
 
   useEffect(() => {
     async function fetchRealEstateAgents() {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/corretores`,
-          {
-            cache: "no-store",
-          },
-        );
-        const data = (await response.json()) as CorretoresApi;
+        const response = await listEstateAgent();
 
-        if (response.ok) {
-          setCorretores(data.usuarios);
-        } else {
-          console.error("Erro ao buscar corretores:", data.mensagem);
-        }
+        setCorretores(response.usuarios);
       } catch (error) {
-        console.error("Erro ao buscar corretores:", error);
+        if (error instanceof HTTPError) {
+          const { mensagem } = await error.response.json();
+          console.error(mensagem);
+
+          return { success: false, message: mensagem, errors: null };
+        }
+
+        return {
+          success: false,
+          message: "Erro inesperado, tente novamente dentro de alguns minutos",
+          errors: null,
+        };
       } finally {
         setIsLoading(false);
       }
     }
 
     fetchRealEstateAgents();
-  }, [updateTrigger]);
+  }, [rehydrateTrigger]);
 
   async function handleDelete(id: number) {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/corretores/${id}`,
-        {
-          method: "DELETE",
-        },
-      );
+      const response = await deleteEstateAgent({ id });
 
-      if (response.ok) {
+      if (response.status === true) {
         const updatedCorretores = corretores.filter(
           (corretor) => corretor.id !== id,
         );
         setCorretores(updatedCorretores);
+
         toast.info("Corretor deletado com sucesso", {
           duration: 4000,
         });
       } else {
-        const errorData = await response.json();
-        console.error("Erro ao deletar corretor:", errorData.mensagem);
+        toast.error(response.mensagem, {
+          duration: 4000,
+        });
       }
     } catch (error) {
-      console.error("Erro ao deletar corretor:", error);
+      if (error instanceof HTTPError) {
+        const { mensagem } = await error.response.json();
+
+        return { success: false, message: mensagem, errors: null };
+      }
+
+      return {
+        success: false,
+        message: "Erro inesperado, tente novamente dentro de alguns minutos",
+        errors: null,
+      };
     }
   }
 
@@ -122,10 +125,10 @@ export function ListRealEstateAgents({
                     <TableCell>{corretor.cpf}</TableCell>
 
                     <TableCell className="flex justify-end gap-2">
-                      <Button variant="outline" asChild>
+                      <Button asChild variant="outline">
                         <a
                           href={`/editar-corretor/${corretor.id}`}
-                          className="flex items-center gap-1 text-blue-500"
+                          className="flex items-center gap-1 text-blue-600"
                         >
                           <Pencil size={14} />
                           Editar

@@ -11,7 +11,7 @@ class Router
     private $uri;
     private $routes;
 
-    private $corretorcontroller;
+    private $corretorController;
 
     public function __construct($requestMethod, $uri)
     {
@@ -93,10 +93,7 @@ class Router
             "DELETE" => [
                 "/corretores/{id}" => function ($id) {
                     $response = $this->corretorController->delete($id);
-                    return JsonResponse::make(
-                        $response["data"],
-                        $response["status_code"]
-                    );
+                    return JsonResponse::make($response, 200);
                 },
             ],
 

@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/dialog";
 
 interface DeleteModalProps {
-  handleDelete(id: number): Promise<void>;
+  handleDelete(
+    id: number,
+  ): Promise<{ success: boolean; message: any; errors: null } | undefined>;
   corretorId: number;
 }
 

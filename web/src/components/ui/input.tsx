@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-import { useFormContext } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
 
@@ -15,8 +14,6 @@ type InputProps = ComponentProps<"input"> & {
 };
 
 export function Input({ className, ...props }: InputProps) {
-  const { register } = useFormContext();
-
   return (
     <input
       id={props.name}
@@ -24,7 +21,6 @@ export function Input({ className, ...props }: InputProps) {
         "flex-1 border-0 bg-transparent p-0 text-zinc-900 placeholder-zinc-600 outline-none",
         className,
       )}
-      {...register(props.name)}
       {...props}
     />
   );

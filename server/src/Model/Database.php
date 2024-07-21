@@ -144,7 +144,11 @@ class Database
             $stmt->bindValue(":id", $id);
             $stmt->execute();
 
-            return true;
+            if ($stmt->rowCount() > 0) {
+                return true;  
+            } else {
+                return false;  
+            }
         } catch (PDOException $e) {
             echo "Erro ao deletar corretor: " . $e->getMessage();
             return false;
