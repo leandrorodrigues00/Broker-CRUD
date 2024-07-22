@@ -92,7 +92,7 @@ To see the project in action, watch the video available at the link:
  
 ## API Routes
 
-The backend API routes are documented [Here.](./docs/rotas-api.md).
+The backend API routes are documented [Here.](./docs/rotas-api.md)
 
 
 ## 📝 License
